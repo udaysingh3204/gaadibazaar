@@ -1,0 +1,18 @@
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Car body -->
+  <ellipse cx="100" cy="75" rx="65" ry="20" fill="#0A1628" opacity="0.1"/>
+
+  <!-- Main car silhouette -->
+  <g fill="#0A1628">
+    <!-- Chassis -->
+    <path d="M 40 80 L 50 50 L 80 40 L 120 40 L 150 50 L 160 80 Z" fill="#0A1628"/>
+
+    <!-- Wheels area -->
+    <rect x="55" y="75" width="12" height="20" rx="6"/>
+    <rect x="133" y="75" width="12" height="20" rx="6"/>
+  </g>
+
+  <!-- Windows -->
+  <path d="M 58 55 L 75 45 L 75 65 L 58 70 Z" fill="#0A1628" opacity="0.2"/>
+  <path d="M 125 45 L 142 55 L 142 70 L 125 65 Z" fill="#0A1628" opacity="0.2"/>
+</svg>

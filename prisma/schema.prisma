@@ -1,0 +1,189 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Dealer {
+  id              String        @id @default(cuid())
+  name            String
+  email           String        @unique
+  phone           String
+  city            String
+  state           String
+  address         String?
+  gstNumber       String?
+  plan            DealerPlan    @default(TRIAL)
+  subscriptionEnd DateTime?
+  isActive        Boolean       @default(true)
+  totalListings   Int           @default(0)
+  totalLeads      Int           @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  cars            Car[]
+  users           DealerUser[]
+  leads           Lead[]
+}
+
+model DealerUser {
+  id        String   @id @default(cuid())
+  email     String
+  name      String
+  role      String   @default("manager")
+  dealerId  String
+  dealer    Dealer   @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([email, dealerId])
+}
+
+model Car {
+  id                String        @id @default(cuid())
+  brand             String
+  model             String
+  variant           String?
+  yearOfManufacture Int
+  registrationYear  Int
+  fuelType          FuelType
+  transmission      Transmission
+  engineCC          Int
+  mileageKmpl       Float?
+  kmDriven          Int
+  numberOfOwners    OwnerCount
+  bodyType          BodyType
+  color             String
+  insuranceValid    DateTime?
+  city              String
+  askingPrice       Int
+  sellerName        String
+  sellerPhone       String
+  highlights        Json
+  images            Json
+  isVerified        Boolean       @default(false)
+  isFeatured        Boolean       @default(false)
+  status            ListingStatus @default(ACTIVE)
+  listingType       ListingType   @default(DEALER)
+  viewCount         Int           @default(0)
+  dealerId          String?
+  dealer            Dealer?       @relation(fields: [dealerId], references: [id], onDelete: SetNull)
+  sellerId          String?
+  seller            PrivateSeller? @relation(fields: [sellerId], references: [id], onDelete: SetNull)
+  leads             Lead[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+}
+
+model PrivateSeller {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  email       String?
+  whatsapp    String?
+  city        String
+  otpVerified Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  cars        Car[]
+}
+
+model OtpRequest {
+  id        String   @id @default(cuid())
+  phone     String
+  code      String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Lead {
+  id          String     @id @default(cuid())
+  carId       String
+  car         Car        @relation(fields: [carId], references: [id], onDelete: Cascade)
+  dealerId    String?
+  dealer      Dealer?    @relation(fields: [dealerId], references: [id], onDelete: SetNull)
+  buyerName   String
+  buyerPhone  String
+  buyerEmail  String?
+  message     String?
+  source      LeadSource @default(PLATFORM)
+  status      LeadStatus @default(NEW)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  CNG
+  ELECTRIC
+  HYBRID
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+  AMT
+  CVT
+  DCT
+}
+
+enum OwnerCount {
+  FIRST
+  SECOND
+  THIRD
+  FOURTH_PLUS
+}
+
+enum BodyType {
+  HATCHBACK
+  SEDAN
+  SUV
+  MUV
+  COUPE
+  CONVERTIBLE
+  PICKUP
+  VAN
+}
+
+enum ListingStatus {
+  ACTIVE
+  SOLD
+  ON_HOLD
+  REMOVED
+}
+
+enum DealerPlan {
+  TRIAL
+  STARTER
+  PROFESSIONAL
+  ELITE
+}
+
+enum ListingType {
+  DEALER
+  PRIVATE
+}
+
+enum LeadSource {
+  PLATFORM
+  WHATSAPP
+  PHONE
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  INTERESTED
+  CONVERTED
+  LOST
+}

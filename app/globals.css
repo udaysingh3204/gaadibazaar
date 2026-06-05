@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #0A1628;
+  --color-accent: #FF6B2B;
+  --color-accent-hover: #E55A1C;
+  --color-surface: #F8F7F4;
+  --color-card: #FFFFFF;
+  --color-text: #1A1A2E;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+  --color-success: #16A34A;
+  --color-sold: #DC2626;
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-accent: var(--color-accent);
+  --color-surface: var(--color-surface);
+  --color-card: var(--color-card);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --color-success: var(--color-success);
+  --color-sold: var(--color-sold);
+  --font-heading: var(--font-syne);
+  --font-body: var(--font-dm-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-gradient {
+  background: linear-gradient(-45deg, #0A1628, #1a2a4a, #0d1f3c, #162035);
+  background-size: 400% 400%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
