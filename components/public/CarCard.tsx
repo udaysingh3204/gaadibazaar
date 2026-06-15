@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { VerificationBadges } from "@/components/public/VerificationBadges";
 import { useWishlistStore } from "@/store/wishlistStore";
-import { formatIndianPrice, formatKm, cn } from "@/lib/utils";
+import { formatIndianPrice, formatKm, calculateEMI, cn } from "@/lib/utils";
 import type { Car, FuelType } from "@/types/car";
 
 interface CarCardProps {
@@ -34,7 +34,7 @@ export default function CarCard({ car }: CarCardProps) {
   const { toggle, isWishlisted } = useWishlistStore();
   const wishlisted = isWishlisted(car.id);
   const images = Array.isArray(car.images) ? car.images : [];
-  const imageUrl = images[0] || "/images/placeholders/car.jpg";
+  const imageUrl = images[0] || "/images/placeholders/car.svg";
 
   return (
     <article className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
@@ -120,6 +120,9 @@ export default function CarCard({ car }: CarCardProps) {
           <div>
             <p className="text-[#FF6B2B] font-bold text-lg leading-none">
               {formatIndianPrice(car.askingPrice)}
+            </p>
+            <p className="text-[10px] text-gray-400 mt-0.5">
+              EMI ₹{calculateEMI(car.askingPrice).toLocaleString("en-IN")}/mo*
             </p>
             <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-0.5">
               <MapPin className="w-3 h-3" />

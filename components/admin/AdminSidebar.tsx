@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   Car,
   PlusCircle,
+  Clock,
   LogOut,
   Menu,
   X,
@@ -16,7 +17,8 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/listings", label: "Listings", icon: Car },
+  { href: "/admin/listings", label: "All Listings", icon: Car },
+  { href: "/admin/listings/pending", label: "Pending Review", icon: Clock },
   { href: "/admin/listings/new", label: "Add New Car", icon: PlusCircle },
 ];
 

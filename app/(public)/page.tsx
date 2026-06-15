@@ -10,6 +10,7 @@ import CarCard from "@/components/public/CarCard";
 import HowItWorks from "@/components/public/HowItWorks";
 import TestimonialsSection from "@/components/public/TestimonialsSection";
 import BodyTypeSection from "@/components/public/BodyTypeSection";
+import { NCRQuickLinks } from "@/components/public/NCRQuickLinks";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -59,6 +60,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <TrustBadges />
+      <NCRQuickLinks />
 
       {/* Featured Listings */}
       <section className="py-16 bg-[#F8F7F4]">
